@@ -1,10 +1,13 @@
-🩺 Breast Cancer Detector — YOLO11
-Detector de anomalias em mamografias utilizando Deep Learning
+<h1>🩺 Breast Cancer Detector — YOLO11</h1>
+<p>Detector de anomalias em mamografias utilizando Deep Learning</p>
 
-Este projeto implementa um modelo YOLO11 treinado para identificar possíveis tumores malignos, benignos ou padrões normais em mamografias.
-O pipeline utiliza máscaras para gerar labels, divide as imagens em classes e aplica augmentations para aumentar a robustez do modelo em cenários reais.
+<p>Este projeto implementa um modelo <strong>YOLO11</strong> treinado para identificar possíveis tumores <strong>malignos</strong>, <strong>benignos</strong> ou padrões <strong>normais</strong> em mamografias. O pipeline utiliza máscaras para gerar labels, divide as imagens em classes e aplica <strong>augmentations</strong> para aumentar a robustez do modelo em cenários reais.</p>
 
-📁 Estrutura do Projeto
+<hr />
+
+<h2>📁 Estrutura do Projeto</h2>
+
+<pre>
 breast-cancer-detector/
 │
 ├── data/
@@ -35,74 +38,85 @@ breast-cancer-detector/
 │       └── ...
 │
 └── README.md
+</pre>
 
-🎯 Objetivo do Projeto
+<hr />
 
-O objetivo principal deste repositório é:
+<h2>🎯 Objetivo do Projeto</h2>
 
-✔ Detectar lesões suspeitas em mamografias
+<ul>
+  <li>✔ Detectar lesões suspeitas em mamografias</li>
+  <li>✔ Diferenciar <strong>normal</strong>, <strong>benigno</strong> e <strong>maligno</strong></li>
+  <li>✔ Auxiliar pesquisadores e profissionais na análise das imagens</li>
+  <li>✔ Aumentar a precisão em imagens claras ou fora do padrão</li>
+</ul>
 
-✔ Diferenciar normal, benigno e maligno
+<hr />
 
-✔ Auxiliar pesquisadores e profissionais na análise das imagens
+<h2>🧩 Classes Utilizadas</h2>
 
-✔ Aumentar a precisão em imagens muito claras ou fora do padrão do dataset
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Classe</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>0</td><td>Normal</td></tr>
+    <tr><td>1</td><td>Benigno</td></tr>
+    <tr><td>2</td><td>Maligno</td></tr>
+  </tbody>
+</table>
 
-🧩 Classes Utilizadas
+<p>Definidas em:</p>
+<ul>
+  <li><code>data/data.yaml</code></li>
+  <li><code>data/datasets/classes.txt</code></li>
+</ul>
 
-O modelo trabalha com 3 classes:
+<hr />
 
-ID	Classe
-0	Normal
-1	Benigno
-2	Maligno
+<h2>🗂 Dataset</h2>
 
-Essas classes estão definidas em:
+<p>Organização no formato padrão YOLO:</p>
 
-data/data.yaml
-
-data/datasets/classes.txt
-
-🗂 Dataset
-
-O dataset está estruturado no formato oficial do YOLO:
-
+<pre>
 images/
    train/
    val/
 labels/
    train/
    val/
+</pre>
 
+<p>As labels foram geradas automaticamente a partir das máscaras com:</p>
+<code>scripts/prepare_dataset.py</code>
 
-As labels foram geradas automaticamente pelas máscaras originais utilizando:
+<hr />
 
-scripts/prepare_dataset.py
+<h2>🔄 Data Augmentation</h2>
 
-🔄 Data Augmentation
+<p>Para melhorar desempenho e balancear classes, foram usadas:</p>
+<ul>
+  <li>Rotação</li>
+  <li>Flip horizontal/vertical</li>
+  <li>Ajuste de brilho</li>
+  <li>Ajuste de contraste</li>
+  <li>Ruído</li>
+  <li>Crop aleatório</li>
+</ul>
 
-Para balancear as classes e aumentar a generalização, foram aplicadas:
+<p>Script:</p>
+<code>scripts/augment.py</code>
 
-Rotação
+<hr />
 
-Flip horizontal e vertical
+<h2>🤖 Treinamento</h2>
 
-Ajuste de brilho
+<p>Comando utilizado:</p>
 
-Ajuste de contraste
-
-Adição de ruído
-
-Crop aleatório
-
-Script usado:
-
-scripts/augment.py
-
-🤖 Treinamento
-
-O treinamento do modelo YOLO11 foi executado com:
-
+<pre>
 yolo train \
     model=models/yolo11.pt \
     data=data/data.yaml \
@@ -110,85 +124,91 @@ yolo train \
     imgsz=640 \
     batch=4 \
     device=0
+</pre>
 
+<p>Resultados salvos em:</p>
+<code>results/training/</code>
 
-Os resultados ficam em:
+<ul>
+  <li>Pesos finais</li>
+  <li>Matriz de confusão</li>
+  <li>Curvas P/R</li>
+  <li>Curva F1</li>
+  <li>Predições de validação</li>
+  <li>CSV com métricas</li>
+</ul>
 
-results/training/
+<hr />
 
+<h2>📈 Resultados Gerados</h2>
 
-Incluindo:
+<p>YOLO gera automaticamente:</p>
+<ul>
+  <li>📊 Confusion Matrix</li>
+  <li>📊 Normalized Confusion Matrix</li>
+  <li>📈 Precision × Recall</li>
+  <li>📈 F1 Curve</li>
+  <li>📉 Loss Curve</li>
+  <li>🖼 Batch Predictions</li>
+</ul>
 
-✔ Pesos finais
+<p>Local:</p>
+<code>results/training/</code>
 
-✔ Matriz de confusão
+<hr />
 
-✔ Curvas P/R
+<h2>🔍 Inferência</h2>
 
-✔ Curva F1
+<p>Script:</p>
+<code>scripts/detector_tumores.py</code>
 
-✔ Predições de validação
+<p>Uso:</p>
 
-✔ CSV com métricas completas
-
-📈 Resultados Incluídos
-
-O YOLO gera automaticamente:
-
-📊 Confusion Matrix
-
-📊 Normalized Confusion Matrix
-
-📈 Precision × Recall Curve
-
-📈 F1 Curve
-
-📉 Loss Curve
-
-🖼 Batch Predictions
-
-Localização:
-
-results/training/
-
-🔍 Inferência
-
-Para realizar predições em novas imagens:
-
-Script:
-
-scripts/detector_tumores.py
-
-
-Exemplo de execução:
-
+<pre>
 python3 scripts/detector_tumores.py --image caminho/da/imagem.jpg
+</pre>
 
+<p>O script:</p>
+<ul>
+  <li>Carrega o modelo</li>
+  <li>Executa a predição</li>
+  <li>Salva a imagem anotada</li>
+  <li>Exporta coordenadas</li>
+  <li>Gera relatório JSON</li>
+</ul>
 
-O script:
+<hr />
 
-Carrega o modelo
+<h2>🧪 Exemplo em Python</h2>
 
-Faz a predição
-
-Salva a imagem anotada
-
-Exporta coordenadas
-
-Gera relatório JSON
-
-🧪 Exemplo simples de uso com Python
+<pre>
 from ultralytics import YOLO
 
 model = YOLO("models/yolo11.pt")
-
 results = model("exemplo.jpg")
-
 results[0].show()
+</pre>
 
-📄 Arquivo data.yaml
+<hr />
+
+<h2>📄 Arquivo data.yaml</h2>
+
+<pre>
 train: data/datasets/images/train
 val: data/datasets/images/val
 
 nc: 3
 names: ["normal", "benigno", "maligno"]
+</pre>
+
+<hr />
+
+<h2>🤝 Contribuições</h2>
+
+<p>Issues e PRs são bem-vindos.</p>
+
+<hr />
+
+<h2>📜 Licença</h2>
+
+<p>Adicione aqui sua licença (ex: MIT).</p>
