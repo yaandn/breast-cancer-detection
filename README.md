@@ -1,10 +1,10 @@
 🩺 Breast Cancer Detector — YOLO11
+Detector de anomalias em mamografias utilizando Deep Learning
 
-Detector de anomalias em mamografias utilizando Deep Learning (YOLO)
+Este projeto implementa um modelo YOLO11 treinado para identificar possíveis tumores malignos, benignos ou padrões normais em mamografias.
+O pipeline utiliza máscaras para gerar labels, divide as imagens em classes e aplica augmentations para aumentar a robustez do modelo em cenários reais.
 
-Este projeto implementa um modelo YOLO11 treinado para detectar possíveis tumores malignos e benignos em mamografias, utilizando máscaras para gerar as labels e diversas técnicas de augmentação para melhorar o desempenho em cenários reais.
-
-📌 📁 Estrutura do Projeto
+📁 Estrutura do Projeto
 breast-cancer-detector/
 │
 ├── data/
@@ -25,7 +25,7 @@ breast-cancer-detector/
 │   ├── detector_tumores.py
 │   ├── augment.py
 │   ├── prepare_dataset.py
-│   └── utils.py (opcional)
+│   └── utils.py
 │
 ├── results/
 │   └── training/
@@ -36,66 +36,72 @@ breast-cancer-detector/
 │
 └── README.md
 
-🧠 Objetivo do Projeto
+🎯 Objetivo do Projeto
 
-O objetivo central é construir um modelo YOLO capaz de:
+O objetivo principal deste repositório é:
 
 ✔ Detectar lesões suspeitas em mamografias
+
 ✔ Diferenciar normal, benigno e maligno
-✔ Ajudar pesquisadores a automatizar diagnósticos
-✔ Melhorar a análise de exames com imagens claras ou fora do padrão do dataset de treino
+
+✔ Auxiliar pesquisadores e profissionais na análise das imagens
+
+✔ Aumentar a precisão em imagens muito claras ou fora do padrão do dataset
 
 🧩 Classes Utilizadas
 
-O projeto utiliza 3 classes:
+O modelo trabalha com 3 classes:
 
 ID	Classe
 0	Normal
 1	Benigno
 2	Maligno
 
-Essas classes são definidas em:
+Essas classes estão definidas em:
 
 data/data.yaml
+
 data/datasets/classes.txt
 
 🗂 Dataset
 
-O dataset foi organizado no formato padrão YOLO:
+O dataset está estruturado no formato oficial do YOLO:
 
-images/train/
-images/val/
-labels/train/
-labels/val/
+images/
+   train/
+   val/
+labels/
+   train/
+   val/
 
 
-As labels foram geradas automaticamente a partir das máscaras originais utilizando o script:
+As labels foram geradas automaticamente pelas máscaras originais utilizando:
 
 scripts/prepare_dataset.py
 
 🔄 Data Augmentation
 
-Para balancear as classes e aumentar a robustez do modelo, utilizamos:
+Para balancear as classes e aumentar a generalização, foram aplicadas:
 
 Rotação
 
 Flip horizontal e vertical
 
-Alteração de brilho
+Ajuste de brilho
 
-Alteração de contraste
+Ajuste de contraste
 
-Ruído
+Adição de ruído
 
-Recorte aleatório
+Crop aleatório
 
-Script utilizado:
+Script usado:
 
 scripts/augment.py
 
 🤖 Treinamento
 
-O treinamento foi realizado utilizando YOLO11:
+O treinamento do modelo YOLO11 foi executado com:
 
 yolo train \
     model=models/yolo11.pt \
@@ -106,66 +112,72 @@ yolo train \
     device=0
 
 
-Os resultados ficam salvos em:
+Os resultados ficam em:
 
 results/training/
 
 
-Inclui:
+Incluindo:
 
-pesos treinados
+✔ Pesos finais
 
-matriz de confusão
+✔ Matriz de confusão
 
-curvas P/R
+✔ Curvas P/R
 
-curvas Box P/R
+✔ Curva F1
 
-batches de validação
+✔ Predições de validação
 
-CSV com métricas completas
+✔ CSV com métricas completas
 
-📈 Resultados
+📈 Resultados Incluídos
 
-📌 Os gráficos gerados pelo YOLO incluem:
+O YOLO gera automaticamente:
 
-Confusion Matrix
+📊 Confusion Matrix
 
-Normalized Confusion Matrix
+📊 Normalized Confusion Matrix
 
-Precision x Recall
+📈 Precision × Recall Curve
 
-F1 Curve
+📈 F1 Curve
 
-Loss Curve
+📉 Loss Curve
 
-Batch Predictions
+🖼 Batch Predictions
 
-Esses arquivos estão em:
+Localização:
 
 results/training/
 
 🔍 Inferência
 
-O script de inferência está em:
+Para realizar predições em novas imagens:
+
+Script:
 
 scripts/detector_tumores.py
 
 
-Exemplo de uso:
+Exemplo de execução:
 
 python3 scripts/detector_tumores.py --image caminho/da/imagem.jpg
 
 
 O script:
 
-✔ Carrega o modelo
-✔ Faz a predição
-✔ Salva a imagem anotada
-✔ Gera as coordenadas das detecções
-✔ Salva o relatório JSON
+Carrega o modelo
 
-🧪 Exemplo de Execução
+Faz a predição
+
+Salva a imagem anotada
+
+Exporta coordenadas
+
+Gera relatório JSON
+
+🧪 Exemplo simples de uso com Python
 from ultralytics import YOLO
 
 model = YOLO("models/yolo11.pt")
@@ -180,6 +192,3 @@ val: data/datasets/images/val
 
 nc: 3
 names: ["normal", "benigno", "maligno"]
-
-
-
