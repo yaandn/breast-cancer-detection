@@ -201,14 +201,3 @@ nc: 3
 names: ["normal", "benigno", "maligno"]
 </pre>
 
-<hr />
-
-<h2>🤝 Contribuições</h2>
-
-<p>Issues e PRs são bem-vindos.</p>
-
-<hr />
-
-<h2>📜 Licença</h2>
-
-<p>Adicione aqui sua licença (ex: MIT).</p>
