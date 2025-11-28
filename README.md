@@ -3,6 +3,9 @@
 
 <p>Este projeto implementa um modelo <strong>YOLO11</strong> treinado para identificar possíveis tumores <strong>malignos</strong>, <strong>benignos</strong> ou padrões <strong>normais</strong> em mamografias. O pipeline utiliza máscaras para gerar labels, divide as imagens em classes e aplica <strong>augmentations</strong> para aumentar a robustez do modelo em cenários reais.</p>
 
+<p>Link da apresentação: <a>https://docs.google.com/presentation/d/1mzidP-CWjmXttNf--3T35erbW7CsDcnPnjvUry67sAM/edit?slide=id.g3aa848e31e4_0_160#slide=id.g3aa848e31e4_0_160</a></p>
+
+
 <hr />
 
 <h2>📁 Estrutura do Projeto</h2>
